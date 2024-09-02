@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sismo Chile</title>
+    <link rel="stylesheet" href="pagina.css">
+</head>
+<body>
+    <h1>Datos del último sismo en Chile</h1>
+    <div id="earthquake-data">Cargando datos...</div>
+
+    <script>
+        const options = { method: 'GET', headers: { accept: 'application/json' } };
+
+        function fetchEarthquakeData() {
+            fetch('https://api.boostr.cl/earthquake.json', options)
+                .then(response => response.json())
+                .then(response => {
+                    document.getElementById('earthquake-data').innerText = JSON.stringify(response, null, 2);
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById('earthquake-data').innerText = 'Error al cargar los datos.';
+                });
+        }
+
+        fetchEarthquakeData();
+    </script>
+</body>
+</html>
